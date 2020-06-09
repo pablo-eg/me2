@@ -9,15 +9,15 @@ import  math
 import scipy                  # http://scipy.org/
 from scipy import constants
 
-def dbm(voltage):
+def dBm(voltage):
 
-    dbm = 20 * math.log10(v)
-    dbu = 20 * math.log10(v*10**3)
+    dBm = 20 * math.log10(v)
+    dBu = 20 * math.log10(v*10**3)
 
-    print('\ndbm = {:f}'.format(dbm))
-    print('\ndbu = {:f}\n\n'.format(dbu))
+    print('\ndbm = {:.2f}'.format(dBm))
+    print('\ndbu = {:.2f}\n\n'.format(dBu))
 
 while 1:
     v = float(input("Enter Voltage in mV: "))
-    dbm(v)
+    dBm(v)
     pass
