@@ -13,7 +13,7 @@ def dBmtoV(dBm):
 
     v = 10**(dBm/20)
 
-    print('\nV = {:.2f} mV\n\n'.format(v))
+    print('\nV = {:.5f} mV\n\n'.format(v))
 
 while 1:
     dBm = float(input("Enter dBm: "))
