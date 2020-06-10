@@ -1,0 +1,25 @@
+Title: * Z:\home\euler\5to-2020\me2\2020\git\LTspice simulations\atenuador_pi.asc
+Date: Wed Jun 10 12:01:30 2020
+Plotname: Operating Point
+Flags: real
+No. Variables: 14
+No. Points:            1
+Offset:   0.0000000000000000e+000
+Command: Linear Technology Corporation LTspice IV
+Variables:
+	0	V(in)	voltage
+	1	V(out)	voltage
+	2	V(n001)	voltage
+	3	V(out2)	voltage
+	4	I(R8)	device_current
+	5	I(R7)	device_current
+	6	I(R6)	device_current
+	7	I(R5)	device_current
+	8	I(R4)	device_current
+	9	I(R3)	device_current
+	10	I(R2)	device_current
+	11	I(R1)	device_current
+	12	I(V2)	device_current
+	13	I(V1)	device_current
+Binary:
+š™™™™™¹?e7†5ÍÌÌ=¨×#<ìÏ9(3~¹xÆä8ûŽ:	e2	å²	e2>Ã®:æÁ®º#Ä®º
