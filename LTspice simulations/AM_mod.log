@@ -1,0 +1,23 @@
+Circuit: * Z:\home\euler\5to-2020\me2\2020\git\simulations\AM_mod.asc
+
+WARNING: Less than two connections to node OUT.  This node is used by B2.
+Direct Newton iteration for .op point succeeded.
+
+Date: Wed Jun 10 11:22:26 2020
+Total elapsed time: 2.047 seconds.
+
+tnom = 27
+temp = 27
+method = modified trap
+totiter = 403666
+traniter = 403663
+tranpoints = 200008
+accept = 120012
+rejected = 79996
+matrix size = 6
+fillins = 0
+solver = Normal
+Matrix Compiler1: 110 bytes object code size  2.7/2.7/[2.6]
+Matrix Compiler2: 266 bytes object code size  2.7/2.8/[2.7]
+
+

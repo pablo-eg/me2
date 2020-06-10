@@ -1,0 +1,21 @@
+Circuit: * Z:\home\euler\5to-2020\me2\2020\git\LTspice simulations\atenuador_pi.asc
+
+Direct Newton iteration for .op point succeeded.
+
+Date: Wed Jun 10 12:01:30 2020
+Total elapsed time: 0.029 seconds.
+
+tnom = 27
+temp = 27
+method = trap
+totiter = 3
+traniter = 0
+tranpoints = 0
+accept = 0
+rejected = 0
+matrix size = 6
+fillins = 0
+solver = Normal
+Matrix Compiler1: 110 bytes object code size
+Matrix Compiler2: 346 bytes object code size
+
