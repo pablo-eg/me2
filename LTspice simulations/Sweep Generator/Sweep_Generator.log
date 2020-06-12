@@ -1,0 +1,22 @@
+Circuit: * Z:\home\euler\5to-2020\me2\2020\git\LTspice simulations\Sweep Generator\Sweep_Generator.asc
+
+Direct Newton iteration for .op point succeeded.
+
+Date: Fri Jun 12 18:33:51 2020
+Total elapsed time: 5.401 seconds.
+
+tnom = 27
+temp = 27
+method = modified trap
+totiter = 640322
+traniter = 640319
+tranpoints = 319208
+accept = 220162
+rejected = 99046
+matrix size = 6
+fillins = 0
+solver = Normal
+Matrix Compiler1: 128 bytes object code size  3.0/3.1/[2.9]
+Matrix Compiler2: 306 bytes object code size  2.9/3.1/[2.9]
+
+
