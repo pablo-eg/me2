@@ -2,8 +2,8 @@ Circuit: * Z:\home\euler\5to-2020\me2\2020\git\LTspice simulations\Pi attenuator
 
 Direct Newton iteration for .op point succeeded.
 
-Date: Thu Jun 11 18:34:46 2020
-Total elapsed time: 0.055 seconds.
+Date: Sat Jun 13 14:50:31 2020
+Total elapsed time: 0.086 seconds.
 
 tnom = 27
 temp = 27

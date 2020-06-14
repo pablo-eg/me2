@@ -1,8 +1,0 @@
-* Z:\home\euler\5to-2020\me2\2020\git\LTspice simulations\Sweep Generator\Sweep_LTspice.asc
-R1 N002 N001 10k
-L1 N002 0 0.1m
-C1 N002 0 1n
-V1 N001 0 AC 1
-.ac lin 100 1 1Meg
-.backanno
-.end
