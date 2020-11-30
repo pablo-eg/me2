@@ -1,24 +1,22 @@
 Circuit: * Z:\home\euler\5to-2020\me2\2020\git\LTspice simulations\Triangle Wave\triangle_wave.asc
 
-WARNING: Node N001 is floating.
-
 .OP point found by inspection.
 
-Date: Sat Jun 13 10:30:13 2020
+Date: Wed Jun 17 10:35:16 2020
 Total elapsed time: 0.084 seconds.
 
 tnom = 27
 temp = 27
 method = modified trap
-totiter = 2180
-traniter = 2180
-tranpoints = 1091
-accept = 1087
+totiter = 2182
+traniter = 2182
+tranpoints = 1092
+accept = 1088
 rejected = 4
 matrix size = 2
 fillins = 0
 solver = Normal
-Matrix Compiler1: 54 bytes object code size  2.8/2.8/[2.8]
-Matrix Compiler2: 116 bytes object code size  3.8/2.8/[2.8]
+Matrix Compiler1: 54 bytes object code size  3.2/2.8/[2.9]
+Matrix Compiler2: 116 bytes object code size  3.2/3.0/[3.0]
 
 

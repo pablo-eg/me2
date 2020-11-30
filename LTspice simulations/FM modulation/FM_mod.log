@@ -1,22 +1,23 @@
 Circuit: * Z:\home\euler\5to-2020\me2\2020\git\LTspice simulations\FM modulation\FM_mod.asc
 
+WARNING: Less than two connections to node OUT.  This node is used by A1.
 Direct Newton iteration for .op point succeeded.
 
-Date: Thu Jun 11 16:14:42 2020
-Total elapsed time: 0.081 seconds.
+Date: Tue Oct 20 00:41:40 2020
+Total elapsed time: 0.150 seconds.
 
 tnom = 27
 temp = 27
 method = modified trap
-totiter = 2319
-traniter = 2316
-tranpoints = 1061
-accept = 1047
-rejected = 14
-matrix size = 4
+totiter = 5241
+traniter = 5238
+tranpoints = 2278
+accept = 1638
+rejected = 640
+matrix size = 9
 fillins = 0
 solver = Normal
-Matrix Compiler1: 82 bytes object code size  3.3/3.2/[2.6]
-Matrix Compiler2: 214 bytes object code size  3.4/3.3/[2.7]
+Matrix Compiler1: 188 bytes object code size  2.9/2.9/[2.8]
+Matrix Compiler2: 411 bytes object code size  2.8/2.9/[2.7]
 
 

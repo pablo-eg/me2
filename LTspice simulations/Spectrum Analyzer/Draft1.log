@@ -1,0 +1,24 @@
+Circuit: * Z:\home\euler\5to-2020\me2\2020\git\LTspice simulations\Spectrum Analyzer\Draft1.asc
+
+WARNING: Less than two connections to node N002.  This node is used by V1.
+WARNING: Less than two connections to node N001.  This node is used by V2.
+.OP point found by inspection.
+
+Date: Sun Nov 22 11:40:47 2020
+Total elapsed time: 0.132 seconds.
+
+tnom = 27
+temp = 27
+method = modified trap
+totiter = 3380
+traniter = 3380
+tranpoints = 1691
+accept = 1653
+rejected = 38
+matrix size = 4
+fillins = 0
+solver = Normal
+Matrix Compiler1:       3 opcodes  2.6/[2.7]/2.8
+Matrix Compiler2:      16 opcodes  2.6/[2.7]/3.1
+
+

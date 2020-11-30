@@ -1,0 +1,22 @@
+Circuit: * Z:\home\euler\5to-2020\me2\2020\git\LTspice simulations\lm358.asc
+
+Direct Newton iteration for .op point succeeded.
+
+Date: Mon Nov 30 02:05:49 2020
+Total elapsed time: 0.288 seconds.
+
+tnom = 27
+temp = 27
+method = modified trap
+totiter = 2821
+traniter = 2808
+tranpoints = 1326
+accept = 1216
+rejected = 110
+matrix size = 39
+fillins = 41
+solver = Normal
+Matrix Compiler1: 3.74 KB object code size  6.2/4.9/[4.0]
+Matrix Compiler2: 3.75 KB object code size  4.2/5.2/[3.9]
+
+

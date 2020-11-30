@@ -1,0 +1,23 @@
+Circuit: * Z:\home\euler\5to-2020\me2\2020\git\LTspice simulations\ETB Oscilloscope\Draft21.asc
+
+WARNING: Less than two connections to node N001.  This node is used by B1.
+Direct Newton iteration for .op point succeeded.
+
+Date: Thu Jun 18 09:52:53 2020
+Total elapsed time: 48.566 seconds.
+
+tnom = 27
+temp = 27
+method = modified trap
+totiter = 160020
+traniter = 160017
+tranpoints = 80009
+accept = 48013
+rejected = 31996
+matrix size = 6
+fillins = 0
+solver = Normal
+Matrix Compiler1: 110 bytes object code size  3.8/2.7/[2.6]
+Matrix Compiler2: 266 bytes object code size  2.7/2.7/[2.6]
+
+

@@ -1,0 +1,22 @@
+Circuit: * Z:\home\euler\5to-2020\me2\2020\git\LTspice simulations\AM modulation\Draft17.asc
+
+Direct Newton iteration for .op point succeeded.
+
+Date: Sat Jun 27 23:06:37 2020
+Total elapsed time: 44.236 seconds.
+
+tnom = 27
+temp = 27
+method = modified trap
+totiter = 995212
+traniter = 995186
+tranpoints = 362661
+accept = 226674
+rejected = 135987
+matrix size = 31
+fillins = 10
+solver = Normal
+Matrix Compiler1:     104 opcodes  6.6/[6.0]/6.7
+Matrix Compiler2: 2.75 KB object code size  5.8/7.7/[4.2]
+
+

@@ -1,0 +1,22 @@
+Circuit: * Z:\home\euler\5to-2020\me2\2020\git\LTspice simulations\Draft1.asc
+
+.OP point found by inspection.
+
+Date: Wed Nov 25 14:05:33 2020
+Total elapsed time: 0.168 seconds.
+
+tnom = 27
+temp = 27
+method = modified trap
+totiter = 2537
+traniter = 2537
+tranpoints = 1102
+accept = 1096
+rejected = 6
+matrix size = 3
+fillins = 0
+solver = Normal
+Matrix Compiler1: 50 bytes object code size  2.7/3.1/[2.7]
+Matrix Compiler2: 175 bytes object code size  2.7/3.1/[2.7]
+
+

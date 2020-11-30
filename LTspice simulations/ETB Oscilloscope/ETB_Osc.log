@@ -1,0 +1,23 @@
+Circuit: * Z:\home\euler\5to-2020\me2\2020\git\LTspice simulations\ETB Oscilloscope\ETB_Osc.asc
+
+WARNING: Less than two connections to node N003.  This node is used by B1.
+.OP point found by inspection.
+
+Date: Thu Nov 19 15:18:13 2020
+Total elapsed time: 0.142 seconds.
+
+tnom = 27
+temp = 27
+method = modified trap
+totiter = 7134
+traniter = 7134
+tranpoints = 3548
+accept = 3168
+rejected = 380
+matrix size = 8
+fillins = 0
+solver = Normal
+Matrix Compiler1:      13 opcodes  3.4/[3.2]/3.4
+Matrix Compiler2: 426 bytes object code size  3.2/9.9/[3.3]
+
+
