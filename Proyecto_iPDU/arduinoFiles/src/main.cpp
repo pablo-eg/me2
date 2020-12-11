@@ -1,3 +1,16 @@
+/*
+Proyecto final de la Cátedra Medidas Electrónicas II UTN FRM
+
+Año: 2020
+
+Autores:
+Pablo Garcia
+Sofia Gai Rejan
+Leonardo Stampanoni
+*/
+
+
+
 /**************** LIBRERIAS ****************/
 //#include <Arduino.h>
 #include <EtherCard.h>
@@ -59,108 +72,105 @@ void refreshDisplay(void);
 /****************** SETUP ******************/
 void setup()
 {
-	// se deshabilitan las interrupciones
-	cli();
+ // se deshabilitan las interrupciones
+ cli();
 
-  // configuracion de pines
-	pinMode(LED, OUTPUT);
-	pinMode(rele1, OUTPUT); // rele
-	digitalWrite(rele1, rele1State);
+ // configuracion de pines
+ pinMode(LED, OUTPUT);
+ pinMode(rele1, OUTPUT); // rele
+ digitalWrite(rele1, rele1State);
 
-	// inicializo el timer
-  timer_init();
+ // inicializo el timer
+ timer_init();
 
-	// enciendo el timer
-	timer_on();
+ // enciendo el timer
+ timer_on();
 
-  _delay_ms(1000);
+ _delay_ms(1000);
 
-  // inicializo el puerto serie
-	Serial.begin(9600);
+// inicializo el puerto serie (solo para debugging)
+ Serial.begin(9600);
 
-  // configuración de ethernet
-	if(!ether.begin(sizeof Ethernet::buffer, mymac, 53))
-  {
-    Serial.println("No se ha podido acceder a la controlador Ethernet");
-  }
-  else
-  {
-    Serial.println("Controlador Ethernet inicializado" );
-  }
+ // configuración de ethernet
+ if(!ether.begin(sizeof Ethernet::buffer, mymac, 53))	Serial.println("No se ha podido acceder a la controlador Ethernet");
 
-	ether.dhcpSetup();	// agregar alerta para cuando no pueda conectarse
-	// ether.staticSetup(myip, gwip, dnsip, mask); // Cuando seteo una dirección estática, no puedo enviar paquetes por UDP
-	 ether.printIp("IP:  ", ether.myip);
-	 ether.printIp("GW:  ", ether.gwip);
-	// ether.printIp("DNS: ", ether.dnsip);
+ else	Serial.println("Controlador Ethernet inicializado" );
 
-	// se elige el puerto 1337 para que reciba la trama
-	ether.udpServerListenOnPort(&udpSerialPrint, 1337);
+ ether.dhcpSetup();	// agregar alerta para cuando no pueda conectarse
+ // ether.staticSetup(myip, gwip, dnsip, mask); // Cuando seteo una dirección estática, no puedo enviar paquetes por UDP
+ ether.printIp("IP:  ", ether.myip);
+ ether.printIp("GW:  ", ether.gwip);
+ // ether.printIp("DNS: ", ether.dnsip);
+
+ // se elige el puerto 1337 para que reciba el datagrama
+ ether.udpServerListenOnPort(&udpSerialPrint, 1337);
 
 	// se inicializa el LCD con los numeros de columnas y filas
-	lcd.begin(16, 2);
+ lcd.begin(16, 2);
 
-	lcd.print("192.168.1.33");
+ lcd.print("192.168.1.33");
 
-  // se habilitan las interrupciones
-  sei();
+ // se habilitan las interrupciones
+ sei();
 }
 
 /****************** LOOP *******************/
 void loop()
 {
+  // parpadeo LED para saber que la placa se encuentra en funcionamiento
+  if( millis() - lastTime >= 1500)
+  {
+    digitalWrite(LED, !digitalRead(LED)); // cambio el estado del pin 14
+    lastTime = millis();
+  }
 
-		if( millis() - lastTime >= 1500)
-		{
-			digitalWrite(LED, !digitalRead(LED)); // cambio el estado del pin 14
-			lastTime = millis();
-		}
+  // permite hacer ping
+  if (ether.packetLoop(ether.packetReceive()))
+  {
 
-		if (ether.packetLoop(ether.packetReceive()))
-    {
+  }
 
-    }
+  // si el buffer se lleno de muestras y pasaron más de 1 s
+  if(s >= BUFFER && millis() - lastTime2 >= 1000)
+  {
+    lastTime2 = millis();
+    timer_off();
+    rms();	// se calcula los valores RMS
+    armaPayload(); // arma el payload del paquete UDP que será enviado
+    ether.sendUdp(payload, sizeof(payload), srcPort, dstIp, dstPort);		//se envian a 2 direcciones IPs. Esto se utilizo para probarlo en distintas redes
+    ether.sendUdp(payload, sizeof(payload), srcPort, dstIp2, dstPort);
+    timer_on();
+  }
 
-		if(s >= BUFFER && millis() - lastTime2 >= 1000)
-		{
-			lastTime2 = millis();
-			timer_off();
-      rms();
-			armaPayload();
-			ether.sendUdp(payload, sizeof(payload), srcPort, dstIp, dstPort);
-			ether.sendUdp(payload, sizeof(payload), srcPort, dstIp2, dstPort);
-			timer_on();
-		}
+  // se prende o apaga el rele
+  if(rele1State != rele1LastState)
+  {
+    digitalWrite(rele1, rele1State);
+    rele1LastState = rele1State;
+  }
 
-		// se prende o apaga el rele
-		if(rele1State != rele1LastState)
-		{
-			digitalWrite(rele1, rele1State);
-			rele1LastState = rele1State;
-		}
-
-		if(millis() - lastTime3 >= 1000)
-		{
-			lastTime3 = millis();
-			refreshDisplay();
-		}
-
+  // se refresca la pantalla cada 1s
+  if(millis() - lastTime3 >= 1000)
+  {
+    lastTime3 = millis();
+    refreshDisplay();
+  }
 }
 
 /********* FUNCIONES: DEFINICIONES *********/
- ISR(TIMER5_COMPA_vect)
+ISR(TIMER5_COMPA_vect)
 {
   /*
   Rutina de servición de atencion de la interrupción del timer 5.
   Si BUFFER no esta lleno, toma una muestra de tensión y corriente.
   */
 
-	if( s < BUFFER )
-	{
-		samplesV[s] = analogRead(voltageSensor);
-		samplesI[s] = analogRead(currentSensor);
-		s++;
-	}
+  if( s < BUFFER )
+  {
+    samplesV[s] = analogRead(voltageSensor);
+    samplesI[s] = analogRead(currentSensor);
+    s++;
+  }
 }
 
 void rms(void)
@@ -175,8 +185,8 @@ void rms(void)
 
   for(i=0; i<BUFFER; i++)
   {
-		samplesV[i] = samplesV[i] - offset_v;
-		samplesI[i] = samplesI[i] - offset_i;
+    samplesV[i] = samplesV[i] - offset_v; // se saca el offset de las muestras
+    samplesI[i] = samplesI[i] - offset_i;
     acumuladorV = acumuladorV + (unsigned long) samplesV[i] * samplesV[i];
     acumuladorI = acumuladorI + (unsigned long) samplesI[i] * samplesI[i];
   }
@@ -187,81 +197,75 @@ void rms(void)
   acumuladorV = 0;
   acumuladorI = 0;
 
-	Serial.print(" Vef: "); // sacar
-  Serial.print(Vef);
-	/*
-	Serial.print(" Ief: ");
-  Serial.println(Ief);
-	*/
-
   s = 0;
-
-  // timer_on();
 }
 
 void armaPayload(void)
 {
-	/*
-	Arma el paquete que va a ser enviado por UDP
-	Suponiendo que:
-	Vef = 3.45
-	Ief = 0.234
-	El string enviado debe ser: "V3.450I0.234"
-	Entonces cada paquete tendra un payload de 13 caracteres.
-	*/
+  /*
+  Arma el paquete que va a ser enviado por UDP.
+  Suponiendo que:
+  Vef = 3.45
+  Ief = 0.234
+  El string enviado debe ser: "V3.450I0.234"
+  Entonces cada paquete tendra un payload de 13 caracteres.
+  */
 
-	// convierto la tensión (float) a string
-	dtostrf(Vef, 5, 3, Vef_c);
+  // convierto la tensión (float) a string
+  dtostrf(Vef, 5, 3, Vef_c);
 
-	// convierto la corriente (float) a string
-	dtostrf(Ief, 5, 3, Ief_c);
+  // convierto la corriente (float) a string
+  dtostrf(Ief, 5, 3, Ief_c);
 
-	// se arma el payload
-	sprintf(payload, "V%sI%s",  Vef_c,  Ief_c);
+  // se arma el payload
+  sprintf(payload, "V%sI%s",  Vef_c,  Ief_c);
 }
 
 void udpSerialPrint(uint16_t dest_port, uint8_t src_ip[IP_LEN], uint16_t src_port, const char *data, uint16_t len)
 {
-	/*
-	Se ejecuta cada vez que se recibe una trama UDP
+  /*
+  Se ejecuta cada vez que se recibe una trama UDP
 
-	La trama que recibe es: "Tn_e_p"
-	Donde:
-	n: es el numero de toma para el cual va a el mensaje, en nuestro caso siempre sera "1"
-	e: estado del toma: 1 significa activar, 0 significa desactivar
-	p: consumo de potencia del toma n
-	*/
+  La trama que recibe es: "Tn_e_p_v"
+  Donde:
+  n: es el numero de toma para el cual va a el mensaje, en nuestro caso siempre sera "1"
+  e: estado del toma: 1 significa activar, 0 significa desactivar
+  p: consumo de potencia del toma n
+  v: tensión de red
+  */
 
-	int i = 0;
+  int i = 0;
 
-	if(data[0] == 'T' && data[1] == '1' && data[2] == '_' && data[4] == '_') // mensaje para toma 1
-	{
-		if(data[3] == '1') rele1State = 0; // si se recibe un 1, se activa el rele
-		if(data[3] == '0') rele1State = 1; // si se recibe un 1, se desactiva el rele
+  if(data[0] == 'T' && data[1] == '1' && data[2] == '_' && data[4] == '_') // mensaje para toma 1
+  {
+    if(data[3] == '1') rele1State = 0; // si se recibe un 1, se activa el rele
+    if(data[3] == '0') rele1State = 1; // si se recibe un 1, se desactiva el rele
 
-		for(i=0; i<5; i++)
-		{
-			power[i] = data[5+i];
-			voltage[i] = data[11+i];
-		}
-	}
+    for(i=0; i<5; i++)
+    {
+      power[i] = data[5+i];
+      voltage[i] = data[11+i];
+    }
+  }
 }
 
-//0123456789012345
-//000.0W    000.0V
 void refreshDisplay(void)
 {
-	/*
-	Actualiza la pantalla
-	*/
+  /*
+  Actualiza la pantalla
 
-	lcd.setCursor(0, 1);
-	lcd.print("               ");
-	lcd.setCursor(0, 1);
-	lcd.print(power);
-	lcd.setCursor(5, 1);
-	lcd.print("W    ");
-	lcd.print(voltage);
-	lcd.setCursor(15, 1);
-	lcd.print("V");
+  0123456789012345	 <--- Dígitos del display
+  192.168.1.33			 <--- Linea 1 del display
+  000.0W    000.0V   <--- Linea 2 del display
+  */
+
+  lcd.setCursor(0, 1);
+  lcd.print("               ");
+  lcd.setCursor(0, 1);
+  lcd.print(power);
+  lcd.setCursor(5, 1);
+  lcd.print("W    ");
+  lcd.print(voltage);
+  lcd.setCursor(15, 1);
+  lcd.print("V");
 }
